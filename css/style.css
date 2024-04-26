@@ -106,6 +106,112 @@
 
 
 
+
+
+  .eco-categories-section {
+    padding: 50px 0;
+    background-color: #f5f5f5; /* Light gray background */
+}
+
+.categories-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.categories-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.categories-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.category {
+    width: 300px;
+    margin: 20px;
+    padding: 20px;
+    background-color: #ffffff; /* White background */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+    transition: transform 0.3s ease-in-out;
+}
+
+.category img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.category h3 {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.shop-now {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #6ab04c; /* Green button background */
+    color: green;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+.shop-now:hover {
+    background-color: #4f8a3e; /* Darker green on hover */
+}
+
+.eco-viewAllBtn {
+    display: block;
+    margin: 30px auto;
+    padding: 12px 24px;
+    background-color: #6ab04c; /* Green button background */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.eco-viewAllBtn:hover {
+    background-color: #4f8a3e; /* Darker green on hover */
+}
+
+@media (max-width: 991.98px) {
+    .navbar .collapse.navbar-collapse {
+        text-align: center;
+    }
+    .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+    }
+    .navbar-nav .nav-item {
+        display: block;
+        margin: 0;
+    }
+    .navbar-toggler {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .navbar-toggler {
+        top: 10px;
+        right: 10px;
+    }
+}
+
+
   /* Categories Section */
 .categories-section {
     text-align: center;
