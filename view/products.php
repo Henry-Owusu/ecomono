@@ -20,8 +20,7 @@
     if (isset($_SESSION['user_name'])) {
         $user_name = $_SESSION['user_name'];
     } else {
-        // Handle the case when 'user_name' session variable is not set
-        // You might want to set a default value or perform some other action
+        
         $user_name = null; // Or any other default value
 
     }

@@ -35,7 +35,7 @@ class product_class extends db_connection
         }
 
         // Check file size (adjust as needed)
-        if ($productImage["size"] > 500000) {
+        if ($productImage["size"] > 10000000) {
             echo "Sorry, your file is too large.";
             $uploadOk = 0;
         }

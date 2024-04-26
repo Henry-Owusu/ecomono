@@ -1,7 +1,6 @@
 <?php
+ob_start();
 require("../controllers/product_controller.php");
-
-
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
     // Retrieve form data
@@ -29,6 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // Registration failed
         echo "Form not submitted.";
-}
+    }
 }
 ?>
