@@ -1,20 +1,20 @@
 <?php 
+    ob_start();
+    session_start();
     include_once("../controllers/product_controller.php");
     include_once("../controllers/category_controller.php");
     include_once("../controllers/cart_controller.php");
-    session_start();
+
     $categories = viewAllCategories_ctr();
     $products = viewAllProducts_ctr();
 
-   
-
     // Check if the session variables are set
     if (isset($_SESSION['user_id'])) {
-        $user_id = $_SESSION['user_id'];
+        $userId = $_SESSION['user_id']; // Access only if set
+        $cartItems = viewCart_ctr($userId);
     } else {
-        // Handle the case when 'user_id' session variable is not set
-        // You might want to set a default value or perform some other action
-        $user_id = null; // Or any other default value
+        $userId = null; // Or any other default value
+        $cartItems = array(); // Or any other default value
     }
 
     if (isset($_SESSION['user_name'])) {
@@ -23,12 +23,13 @@
         // Handle the case when 'user_name' session variable is not set
         // You might want to set a default value or perform some other action
         $user_name = null; // Or any other default value
+
     }
-
-    $userId = $_SESSION['user_id'];
-    $cartItems = viewCart_ctr($userId);
-
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +62,7 @@
     rel="stylesheet">
 
       <!-- [Favicon] icon -->
-      <link rel="icon" href="https://ableproadmin.com/assets/images/favicon.svg" type="image/x-icon"> <!-- [Font] Family -->
+      <link rel="icon" href="../images/favicon.ico" type="image/x-icon"> <!-- [Font] Family -->
     <link rel="stylesheet" href="../assets/fonts/inter/inter.css" id="main-font-link" />
     <!-- [Tabler Icons] https://tablericons.com -->
     <link rel="stylesheet" href="../assets/fonts/tabler-icons.min.css" >
@@ -314,12 +315,12 @@
             <div class="col-3 col-md-3 text-md-end">
                 <ul class="list-unstyled d-flex justify-content-end m-0">
                     <li class="search-box" class="mx-2">
-                        <a href="view/signup.php" class="search-button" id="nextnav">
+                        <a href="signup.php" class="search-button" id="nextnav">
                             <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#user"></use></svg>
                         </a>
                     </li>
                     <li>
-                        <a href="cart.html" class="mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart" id="nextnav">
+                        <a href="#" class="mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart" id="nextnav">
                             <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#cart"></use></svg>
                             <span class="badge bg-danger position-absolute top-0 start-90 translate-middle"><?php echo count($cartItems); ?></span>
                         </a>
@@ -478,10 +479,12 @@
 
             </div>
             <!-- Product Card -->
+
+
             <div class="product-container">
     <?php foreach($products as $product): ?>
         <div class="card product-card mt-4">
-            <form action="../actions/addToCart.php" method="post"> <!-- Form for each product -->
+            <form action="../actions/addtocart.php" method="post"> 
                 <div class="card-body">
                     <div class="product-image position-relative">
                         <img src="<?php echo $product['productImage']; ?>" alt="<?php echo $product['ProductName']; ?>" class="img-fluid">
@@ -529,86 +532,88 @@
           <div class="footer-menu footer-menu-001">
             <div class="footer-intro mb-4">
               <a href="index.html">
-                <img src="images/logo.png" alt="logo">
+                <div class="logo">
+                <span class="eco">ECO</span><ion-icon name="leaf-outline" class="leaf"></ion-icon><span class="mono">MONO</span>
+              </div>
               </a>
             </div>
-            <p>Join us in our mission for a greener future! Explore eco-friendly products, stay informed with insightful blogs, and contribute to a sustainable world. Together, let's make a positive impact on the environment. 🌱 #GoGreen</p>
+            <p style="color:white;">Join us in our mission for a greener future! Explore eco-friendly products, stay informed with insightful blogs, and contribute to a sustainable world. Together, let's make a positive impact on the environment. 🌱 #GoGreen</p>
           </div>
         </div>
         <div class="col-md-2 col-sm-6">
           <div class="footer-menu footer-menu-002">
-            <h5 class="widget-title mb-4">Quick Links</h5>
+            <h5 class="widget-title mb-4" style="color:green;">Quick Links</h5>
             <ul class="menu-list list-unstyled fs-6">
               <li class="menu-item">
-                <a href="index.html" class="item-anchor">Home</a>
+                <a href="index.html" class="item-anchor" style="color:white;">Home</a>
               </li>
               <li class="menu-item">
-                <a href="shop-four-column-wide.html" class="item-anchor">Shop</a>
+                <a href="shop-four-column-wide.html" class="item-anchor" style="color:white;">Shop</a>
               </li>
               <li class="menu-item">
-                <a href="blog.html" class="item-anchor">Sell</a>
+                <a href="blog.html" class="item-anchor" style="color:white;">Sell</a>
               </li>
               <li class="menu-item">
-                <a href="styles.html" class="item-anchor">Blog</a>
+                <a href="styles.html" class="item-anchor" style="color:white;">Blog</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="item-anchor">About</a>
+                <a href="#" class="item-anchor" style="color:white;">About</a>
               </li>
             </ul>
           </div>
         </div>
         <div class="col-md-2 col-sm-6">
           <div class="footer-menu footer-menu-002">
-            <h5 class="widget-title mb-4">About</h5>
+            <h5 class="widget-title mb-4" style="color:green;">About</h5>
             <ul class="menu-list list-unstyled fs-6">
               <li class="menu-item">
-                <a href="index.html" class="item-anchor">How it works</a>
+                <a href="index.html" class="item-anchor" style="color:white;">How it works</a>
               </li>
               <li class="menu-item">
-                <a href="shop-four-column-wide.html" class="item-anchor">About</a>
+                <a href="shop-four-column-wide.html" class="item-anchor" style="color:white;">About</a>
               </li>
               <li class="menu-item">
-                <a href="blog.html" class="item-anchor">Our packages</a>
+                <a href="blog.html" class="item-anchor" style="color:white;">Our packages</a>
               </li>
               <li class="menu-item">
-                <a href="styles.html" class="item-anchor">Promotions</a>
+                <a href="styles.html" class="item-anchor" style="color:white;">Promotions</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="item-anchor">Refer a friend</a>
+                <a href="#" class="item-anchor" style="color:white;">Refer a friend</a>
               </li>
             </ul>
           </div>
         </div>
         <div class="col-md-2 col-sm-6">
           <div class="footer-menu footer-menu-003">
-            <h5 class="widget-title mb-4">Help & Info</h5>
+            <h5 class="widget-title mb-4" style="color:green;">Help & Info</h5>
             <ul class="menu-list list-unstyled fs-6">
               <li class="menu-item">
-                <a href="#" class="item-anchor">Track Your Order</a>
+                <a href="#" class="item-anchor" style="color:white;">Track Your Order</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="item-anchor">Returns + Exchanges</a>
+                <a href="#" class="item-anchor" style="color:white;">Returns + Exchanges</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="item-anchor">Shipping + Delivery</a>
+                <a href="#" class="item-anchor" style="color:white;">Shipping + Delivery</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="item-anchor">Contact Us</a>
+                <a href="#" class="item-anchor" style="color:white;">Contact Us</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="item-anchor">Find us easy</a>
+                <a href="#" class="item-anchor" style="color:white;">Find us easy</a>
               </li>
-              <li class="menu-item">
-                <a href="faqs.html" class="item-anchor">FAQs</a>
+              <li class="menu-item" style="color:white;">
+                <a href="faqs.html" class="item-anchor" style="color:white;">FAQs</a>
               </li>
             </ul>
           </div>
         </div>
         <div class="col-md-3 col-sm-6">
           <div class="footer-menu footer-menu-004 border-animation-left">
-            <h5 class="widget-title mb-4">Contact Us</h5>
-            <p>Do you have any questions or suggestions? <a href="mailto:henryowusu023@gmail.com" class="item-anchor">henryowusu023@gmail.com</a></p>
-            <p>Do you need support? Give us a call. <a href="tel:+233 20 027 1674" class="item-anchor">+233 20 027 1674</a>
+            <h5 class="widget-title mb-4" style="color:green;">Contact Us</h5>
+            <p style="color:white;">Do you have any questions or suggestions? <a href="mailto:henryowusu023@gmail.com" class="item-anchor" style="color:green;">henryowusu023@gmail.com</a></p>
+            <p style="color:white;">Do you need support? Give us a call. <a href="tel:+233 20 027 1674" class="item-anchor" style="color:green;">+233 20 027 1674</a>
             </p>
           </div>
         </div>
@@ -619,19 +624,19 @@
         <div class="row">
           <div class="col-md-6 d-flex flex-wrap">
             <div class="shipping">
-              <span>We ship with:</span>
-              <img src="images/arct-icon.png" alt="icon">
-              <img src="images/dhl-logo.png" alt="icon">
+              <span style="color:white;">We ship with:</span>
+              <img src="../images/arct-icon.png" alt="icon">
+              <img src="../images/dhl-logo.png" alt="icon">
             </div>
             <div class="payment-option">
-              <span>Payment Option:</span>
-              <img src="images/visa-card.png" alt="card">
-              <img src="images/paypal-card.png" alt="card">
-              <img src="images/master-card.png" alt="card">
+              <span style="color:white;">Payment Option:</span>
+              <img src="../images/visa-card.png" alt="card">
+              <img src="../images/paypal-card.png" alt="card">
+              <img src="../images/master-card.png" alt="card">
             </div>
           </div>
           <div class="col-md-6 text-start text-md-end">
-            <p>© Copyright 2024 Ecomono. All rights reserved.</a></p>
+            <p style="color:green;">© Copyright 2024 Ecomono. All rights reserved.</a></p>
           </div>
         </div>
       </div>
@@ -741,32 +746,6 @@
         });
     }
 
-//  function sortProducts(sortBy) {
-//         // Get all product cards
-//         var productCards = document.querySelectorAll('.product-card');
-
-//         // Convert nodelist to array for ease of sorting
-//         var productArray = Array.from(productCards);
-
-//         // Sort products based on price
-//         productArray.sort(function(a, b) {
-//             var priceA = parseFloat(a.querySelector('.product-price').innerText.replace('GHc', ''));
-//             var priceB = parseFloat(b.querySelector('.product-price').innerText.replace('GHc', ''));
-            
-//             if (sortBy === 'priceLowToHigh') {
-//                 return priceA - priceB;
-//             } else {
-//                 return priceB - priceA;
-//             }
-//         });
-
-//         // Append sorted products back to the container
-//         var productContainer = document.querySelector('.product-container');
-//         productContainer.innerHTML = '';
-//         productArray.forEach(function(card) {
-//             productContainer.appendChild(card);
-//         });
-//     }   
 </script>    
   
 
